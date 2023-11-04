@@ -1,33 +1,47 @@
-const tasks = []
 class Application {
-    constructor() {
-        this.tasks = [];
-    }
-    addTask(){
 
-    }
-    destroyTask(taskId) {
+  constructor() {
+    this.tasks = [];
+  }
 
-    }
+  addTask(name) {  
+    let task = new Task(name);
+    this.tasks.push(task);
+  }
+
+  destroyTask(taskId) {
+
+  }
+
 }
-class Task{
-    constructor(name) {
-        this.name = name;
-        this.isCompleted = false;
-    }
-    add(){
 
-    }
-    edit() {
+class Task {
+  
+  constructor(name) {
+    this.name = name;
+    this.isCompleted = false;
+  }
 
-    }
-    destroy() {
+  edit() {
 
-    }
-    complete() {
+  }
 
-    }
-    uncomplete() {
-        
-    }
+  destroy() {
+
+  }
+  
+  complete() {
+
+  }
+
+  uncomplete() {
+      
+  }
+
 }
+
+let application = new Application();
+application.addTask("Задача №1");
+application.addTask("Задача №2");
+
+
