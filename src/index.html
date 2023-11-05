@@ -9,38 +9,26 @@
 <body>
   <div class="container">
     <div class="heading">
-        <a class="heading-text" href="">Website for the tasks</p>
+        <a class="heading-text" href="">Website for the tasks</a>
     </div>
     <div class="board">
         <div class="block">
-            <h1>To Do</h1>
+            <strong>To Do</strong>
             <div class="button-block">
-                <button class="task-button">Create new task</button>
+                <button id="create-task-button">Create new task</button>
             </div>
-            <div class="task">
-                <p>Task 1</p>
-            </div>
-            <div class="task2">
-                <p>Task 2</p>
-            </div>
-            <div class="task3">
-                <p>Task 3</p>
-            </div>
-            <div class="task4">
-                <p>Task 4</p>
-            </div>
-            <div class="task5">
-                <p>Task 5</p>
-            </div>
-            <div class="task6">
-                <p>Task 6</p>
+            <div class="task-list" id="todo-tasks-list">
             </div>
         </div>
         <div class="block">
             <strong>In Progress</strong>
+            <div class="task-list" id="in-progress-tasks-list">
+            </div>
         </div>
         <div class="block">
             <strong>Done</strong>
+            <div class="task-list" id="done-tasks-list">
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
