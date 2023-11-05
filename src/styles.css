@@ -1,3 +1,36 @@
-h1 {
-  color: red;
+.container {
+  width: 70%;
+  min-width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: sans-serif;
+}
+
+.heading-text {
+  font-size: 1.8rem;
+  background-color: tomato;
+  padding: 0.8rem 1.7rem;
+  border-radius: 0.5rem;
+  margin: 1rem;
+}
+.board {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: sans-serif;
+}
+
+.block {
+  padding: 0.6rem;
+  width: 30.5%;
+  min-width: 14rem;
+  min-height: 4.5rem;
+  border-radius: 0.3rem;
 }
