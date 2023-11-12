@@ -1,3 +1,8 @@
+p {
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   width: 70%;
   min-width: 50%;
@@ -33,6 +38,21 @@
   min-width: 14rem;
   min-height: 4.5rem;
   border-radius: 0.3rem;
+  background: #efefef;
+  text-align: center;
+  margin: 10px;
+}
+
+#create-task-button {
+  background: #007fff;
+  color: white;
+  border: 0;
+  padding: 10px 25px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 5px;
+  margin: 10px;
+  cursor: pointer;
 }
 
 
@@ -59,7 +79,7 @@ h1 {
 }
 
 h1:hover {
-  font-variation-settings: "wght" 582; 
+  font-variation-settings: "wght" 582;
   letter-spacing: 1px;
 }
 
@@ -81,3 +101,105 @@ h1:hover {
     border: 1px solid #000000;
     border-radius: 200px;
     }
+
+.delete-btn {
+  background: #f80000;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+.delete-btn:hover {
+  background: #ff4f4f;
+}
+
+.delete-btn img {
+  height: 20px;
+}
+
+.edit-btn {
+  background: #f8cf00;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+.edit-btn:hover {
+  background: #dcb800;
+}
+
+.edit-btn img {
+  height: 20px;
+}
+
+.to-in-progress {
+  background: #00b665;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+.to-in-progress:hover {
+  background: #009955;
+}
+
+.to-in-progress img {
+  height: 20px;
+}
+
+.to-to-do {
+  background: #0056b6;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 8px;
+  margin-right: 4px;
+  cursor: pointer;
+}
+.to-to-do:hover {
+  background: #0062d0;
+}
+
+.to-to-do img {
+  height: 20px;
+}
+
+.to-done {
+  background: #9800b6;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+.to-done:hover {
+  background: #a700c8;
+}
+
+.to-done img {
+  height: 20px;
+}
+
+
+.task {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid #dddddd;
+  border-radius: 5px;
+  background: white;
+  padding: 5px;
+  margin: 10px 5px;
+
+  min-height: 100px;
+  box-shadow: 0px 3px 20px -1px rgba(0, 0, 0, 0.3);
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.name {
+  text-align: left;
+  padding: 5px;
+}
