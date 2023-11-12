@@ -8,15 +8,22 @@ class Application {
 
   constructor() {
     this.tasks = [];
-    let body = document.querySelector("body");
     this.createTaskBtn = document.getElementById("create-task-button");
     this.todoTasksList = document.getElementById("todo-tasks-list");
     this.inProgressTasksList = document.getElementById("in-progress-tasks-list");
     this.doneTasksList = document.getElementById("done-tasks-list");
+    this.toggleThemeBtn = document.getElementById("toggle-theme");
   }
 
   run() {
     this.createTaskBtn.addEventListener("click", () => this.addTask());
+    this.toggleThemeBtn.addEventListener("click", () => {
+      if (document.body.classList.contains("night")) {
+        document.body.classList.remove("night");
+      } else {
+        document.body.classList.add("night");
+      }
+    });
 
     document.body.addEventListener("click", (e) => {
       if (e.target.classList.contains("delete-btn") || e.target.parentElement.classList.contains("delete-btn")) {
