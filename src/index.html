@@ -4,10 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <title>Algoritmika Group 1 - TODO LIST v0.0.1</title>
+  <title>Website for the tasks</title>
 </head>
 <body>
-  <h1>Hello World!</h1>
-  <script src="script.js"></script>
+  <div class="container">
+    <div class="heading">
+        <a class="heading-text" href="">Website for the tasks</a>
+    </div>
+    <div class="board">
+        <div class="block">
+            <strong>To Do</strong>
+            <div class="button-block">
+                <button id="create-task-button">Create new task</button>
+            </div>
+            <div class="task-list" id="todo-tasks-list">
+            </div>
+        </div>
+        <div class="block">
+            <strong>In Progress</strong>
+            <div class="task-list" id="in-progress-tasks-list">
+            </div>
+        </div>
+        <div class="block">
+            <strong>Done</strong>
+            <div class="task-list" id="done-tasks-list">
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+  </div>
 </body>
 </html>
