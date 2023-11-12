@@ -56,13 +56,6 @@ class Application {
     this.doneTasksList.innerHTML = doneTasksHTML;
   }
 
-  addTempTask() {
-    let task = new Task("Test");
-    this.tasks.push(task);
-
-    this.update();
-  }
-
   addTask() {
     let taskName = prompt("Введите название задачи");
     if (!taskName) {
@@ -155,4 +148,3 @@ class Task {
 
 let application = new Application();
 application.run();
-application.addTempTask();
