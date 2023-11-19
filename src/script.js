@@ -4,6 +4,8 @@ const STATUSES = {
   done: "done"
 };
 
+LOCAL_STORAGE_KEY = "tasks";
+
 class Application {
 
   constructor() {
@@ -20,8 +22,10 @@ class Application {
     this.toggleThemeBtn.addEventListener("click", () => {
       if (document.body.classList.contains("night")) {
         document.body.classList.remove("night");
+        window.localStorage.setItem("theme", "");
       } else {
         document.body.classList.add("night");
+        window.localStorage.setItem("theme", "night");
       }
     });
 
@@ -51,6 +55,15 @@ class Application {
         this.moveInDone(id);
       }
     });
+
+    let tasksFromLocalStorage = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+    this.tasks = tasksFromLocalStorage.map(task => new Task(task));
+    this.update();
+
+    let theme = window.localStorage.getItem("theme") || "";
+    if (!!theme) {
+      document.body.classList.add(theme);
+    }
    }
 
   update() {
@@ -61,6 +74,8 @@ class Application {
     this.todoTasksList.innerHTML = todoTasksHTML;
     this.inProgressTasksList.innerHTML = inProgressTasksHTML;
     this.doneTasksList.innerHTML = doneTasksHTML;
+
+    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.tasks));
   }
 
   addTask() {
@@ -69,7 +84,7 @@ class Application {
       return;
     }
 
-    let task = new Task(taskName);
+    let task = new Task({ name: taskName });
     this.tasks.push(task);
 
     this.update();
@@ -122,10 +137,10 @@ class Application {
 
 class Task {
 
-  constructor(name) {
-    this.name = name;
-    this.id = Date.now();
-    this.status = STATUSES.todo;
+  constructor(options) {
+    this.name = options.name;
+    this.id = options.id || Date.now();
+    this.status = options.status || STATUSES.todo;
   }
 
   render() {
