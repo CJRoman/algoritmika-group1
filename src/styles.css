@@ -1,3 +1,16 @@
+head {
+  background: url('/uploads/2022/11/bg_mars.png');
+}
+
+nav {
+  width: 100vw;
+  padding: 1em 0 1em;
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+
 p {
   margin: 0;
   padding: 0;
