@@ -126,7 +126,7 @@ class Application {
     new Promise((resolve) => {
       task.disappearanceAnimation = true;
       this.update();
-      setTimeout(() => resolve(), 300);
+      setTimeout(() => resolve(), 150);
     }).then(() => {
       task.status = STATUSES.inProgress;
       task.appearanceAnimation = true;
@@ -143,7 +143,7 @@ class Application {
     new Promise((resolve) => {
       task.disappearanceAnimation = true;
       this.update();
-      setTimeout(() => resolve(), 300);
+      setTimeout(() => resolve(), 150);
     }).then(() => {
       task.status = STATUSES.todo;
       task.appearanceAnimation = true;
@@ -160,7 +160,7 @@ class Application {
     new Promise((resolve) => {
       task.disappearanceAnimation = true;
       this.update();
-      setTimeout(() => resolve(), 300);
+      setTimeout(() => resolve(), 150);
     }).then(() => {
       task.status = STATUSES.done;
       task.appearanceAnimation = true;

@@ -311,43 +311,31 @@ body.night {
 }
 
 .animation-in {
-  animation: appear-animation 300ms linear;
+  animation: appear-animation 300ms ease;
 }
 
 .animation-out {
-  animation:disappear-animation 300ms linear;
+  animation:disappear-animation 300ms ease;
   animation-fill-mode: forwards;
 }
 
 @keyframes appear-animation {
   0% {
-    opacity: 0;
-    scale: 0;
-  }
-
-  70% {
-    scale: 1.1;
+    transform: rotateX(90deg)
   }
 
   100% {
-    opacity: 1;
-    scale: 1;
+    transform: rotateX(0deg)
   }
 }
 
 @keyframes disappear-animation {
   0% {
-    opacity: 1;
-    scale: 1;
-  }
-
-  30% {
-    scale: 1.1;
+    transform: rotateX(0deg);
   }
 
   100% {
-    opacity: 0;
-    scale: 0;
+    transform: rotateX(90deg);
     display: none;
   }
 }
