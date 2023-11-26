@@ -64,7 +64,11 @@ class Application {
     if (!!theme) {
       document.body.classList.add(theme);
     }
-   }
+  }
+
+  saveState() {
+    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.tasks));
+  }
 
   update() {
     let todoTasksHTML = this.tasks.filter(task => task.status === STATUSES.todo).map((task) => task.render()).join("");
@@ -75,7 +79,7 @@ class Application {
     this.inProgressTasksList.innerHTML = inProgressTasksHTML;
     this.doneTasksList.innerHTML = doneTasksHTML;
 
-    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.tasks));
+    this.saveState()
   }
 
   addTask() {
@@ -84,21 +88,26 @@ class Application {
       return;
     }
 
-    let task = new Task({ name: taskName });
+    let task = new Task({ name: taskName, appearanceAnimation: true });
     this.tasks.push(task);
-
     this.update();
+
+    this.tasks.forEach(task => task.appearanceAnimation = false);
+    this.saveState();
   }
 
   destroyTask(taskId) {
     const idsArray = this.tasks.map(task => task.id);
-    const taskToDestroy = idsArray.indexOf(+taskId);
-    if (taskToDestroy === -1) {
+    const taskToDestroy = this.tasks.find(task => task.id);
+    const taskToDestroyId = idsArray.indexOf(+taskId);
+    if (taskToDestroyId === -1) {
       return;
     }
-
-    this.tasks.splice(taskToDestroy, 1);
+    taskToDestroy.disappearanceAnimation = true;
     this.update();
+
+    this.tasks.splice(taskToDestroyId, 1);
+    this.saveState();
   }
 
   editTask(taskId) {
@@ -114,23 +123,53 @@ class Application {
 
   moveInProgress(taskId) {
     let task = this.tasks.find(task => task.id === +taskId);
-    task.status = STATUSES.inProgress;
+    new Promise((resolve) => {
+      task.disappearanceAnimation = true;
+      this.update();
+      setTimeout(() => resolve(), 300);
+    }).then(() => {
+      task.status = STATUSES.inProgress;
+      task.appearanceAnimation = true;
+      task.disappearanceAnimation = false;
+      this.update();
 
-    this.update();
+      this.tasks.forEach(task => task.appearanceAnimation = false);
+      this.saveState();
+    })
   }
 
   moveInTodo(taskId) {
     let task = this.tasks.find(task => task.id === +taskId);
-    task.status = STATUSES.todo;
+    new Promise((resolve) => {
+      task.disappearanceAnimation = true;
+      this.update();
+      setTimeout(() => resolve(), 300);
+    }).then(() => {
+      task.status = STATUSES.todo;
+      task.appearanceAnimation = true;
+      task.disappearanceAnimation = false;
+      this.update();
 
-    this.update();
+      this.tasks.forEach(task => task.appearanceAnimation = false);
+      this.saveState();
+    })
   }
 
   moveInDone(taskId) {
     let task = this.tasks.find(task => task.id === +taskId);
-    task.status = STATUSES.done;
+    new Promise((resolve) => {
+      task.disappearanceAnimation = true;
+      this.update();
+      setTimeout(() => resolve(), 300);
+    }).then(() => {
+      task.status = STATUSES.done;
+      task.appearanceAnimation = true;
+      task.disappearanceAnimation = false;
+      this.update();
 
-    this.update();
+      this.tasks.forEach(task => task.appearanceAnimation = false);
+      this.saveState();
+    })
   }
 
 }
@@ -141,6 +180,8 @@ class Task {
     this.name = options.name;
     this.id = options.id || Date.now();
     this.status = options.status || STATUSES.todo;
+    this.appearanceAnimation = options.appearanceAnimation || false;
+    this.disappearanceAnimation = options.disappearanceAnimation || false;
   }
 
   render() {
@@ -148,7 +189,7 @@ class Task {
     let buttonsForTaskInInProgress = this.status === STATUSES.inProgress ? `<button class="to-to-do" data-id="${this.id}"><img src="./images/rewind.svg" /></button><button class="to-done" data-id="${this.id}"><img src="./images/finish.svg" /></button>` : "";
     let buttonsForTaskInDone = this.status === STATUSES.done ? `<button class="to-to-do" data-id="${this.id}"><img src="./images/rewind.svg" /></button>` : "";
     return `
-      <div class="task">
+      <div class="task ${this.appearanceAnimation ? 'animation-in' : null} ${this.disappearanceAnimation ? 'animation-out' : null}">
         <div class="name">
           <p>${this.name}</p>
         </div>
