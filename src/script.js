@@ -6,6 +6,11 @@ const STATUSES = {
 
 LOCAL_STORAGE_KEY = "tasks";
 
+function theme() {
+  let header = document.querySelector('head')
+  header.style.background = 'url(/uploads/2022/11/bg_space.png)'
+}
+
 class Application {
 
   constructor() {
