@@ -10,15 +10,26 @@ class Application {
 
   constructor() {
     this.tasks = [];
-    this.createTaskBtn = document.getElementById("create-task-button");
+    this.editMode = false;
+    this.editedTask = null;
+
     this.todoTasksList = document.getElementById("todo-tasks-list");
     this.inProgressTasksList = document.getElementById("in-progress-tasks-list");
     this.doneTasksList = document.getElementById("done-tasks-list");
     this.toggleThemeBtn = document.getElementById("toggle-theme");
+
+    this.createTaskBtn = document.getElementById("create-task-button");
+    this.taskInput = document.getElementById("create-task-input");
+    // this.voiceInput = document.getElementById("voice-input")
   }
 
   run() {
-    this.createTaskBtn.addEventListener("click", () => this.addTask());
+    this.createTaskBtn.addEventListener("click", () => this.updateTask());
+    this.taskInput.addEventListener("keypress", (e) => {
+      if (e.key === 'Enter') {
+        this.updateTask();
+      }
+    });
     this.toggleThemeBtn.addEventListener("click", () => {
       if (document.body.classList.contains("night")) {
         document.body.classList.remove("night");
@@ -82,18 +93,26 @@ class Application {
     this.saveState()
   }
 
-  addTask() {
-    let taskName = prompt("Введите название задачи");
+  updateTask() {
+    let taskName = this.taskInput.value;
     if (!taskName) {
       return;
     }
 
-    let task = new Task({ name: taskName, appearanceAnimation: true });
-    this.tasks.push(task);
-    this.update();
+    if (!this.editMode) {
+      let task = new Task({ name: taskName, appearanceAnimation: true });
+      this.tasks.push(task);
+    } else {
+      this.editedTask.name = taskName;
+      this.editedTask.editing = false;
+      this.editedTask = null;
+      this.editMode = false;
+    }
 
+    this.update();
     this.tasks.forEach(task => task.appearanceAnimation = false);
     this.saveState();
+    this.taskInput.value = "";
   }
 
   destroyTask(taskId) {
@@ -111,13 +130,13 @@ class Application {
   }
 
   editTask(taskId) {
+    this.editMode = true;
     let task = this.tasks.find(task => task.id === +taskId);
-    let taskEdit = prompt("Введите изменения", task.name);
-    if(!taskEdit) {
-      return;
-    }
-    task.name = taskEdit;
-
+    this.editedTask = task;
+    task.editing = true;
+    this.taskInput.value = task.name;
+    this.taskInput.select();
+    this.taskInput.focus();
     this.update();
   }
 
@@ -182,6 +201,7 @@ class Task {
     this.status = options.status || STATUSES.todo;
     this.appearanceAnimation = options.appearanceAnimation || false;
     this.disappearanceAnimation = options.disappearanceAnimation || false;
+    this.editing = false;
   }
 
   render() {
@@ -189,7 +209,10 @@ class Task {
     let buttonsForTaskInInProgress = this.status === STATUSES.inProgress ? `<button class="to-to-do" data-id="${this.id}"><img src="./images/rewind.svg" /></button><button class="to-done" data-id="${this.id}"><img src="./images/finish.svg" /></button>` : "";
     let buttonsForTaskInDone = this.status === STATUSES.done ? `<button class="to-to-do" data-id="${this.id}"><img src="./images/rewind.svg" /></button>` : "";
     return `
-      <div class="task ${this.appearanceAnimation ? 'animation-in' : null} ${this.disappearanceAnimation ? 'animation-out' : null}">
+      <div class="task
+        ${this.appearanceAnimation ? 'animation-in' : null}
+        ${this.disappearanceAnimation ? 'animation-out' : null}
+        ${this.editing ? 'editing' : null}">
         <div class="name">
           <p>${this.name}</p>
         </div>
