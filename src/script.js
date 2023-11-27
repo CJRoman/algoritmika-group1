@@ -20,7 +20,7 @@ class Application {
 
     this.createTaskBtn = document.getElementById("create-task-button");
     this.taskInput = document.getElementById("create-task-input");
-    // this.voiceInput = document.getElementById("voice-input")
+    this.voiceInput = document.getElementById("voice-input-button")
   }
 
   run() {

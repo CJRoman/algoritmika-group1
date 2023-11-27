@@ -340,6 +340,7 @@ body.night {
   margin: 0;
   width: 100%;
   display: flex;
+  position: relative;
 }
 
 #create-task-button {
@@ -371,14 +372,20 @@ body.night {
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2) inset;
 }
 
-#voice-input{
-  border: 1px solid black;
-  border-radius: 5px 0 0 5px;
+#voice-input-button{
+  border: none;
   padding: 10px;
   cursor: pointer;
+  background: url('./images/microphone.svg');
+  position: absolute;
+  right: 0;
+  background-repeat: no-repeat;
+  height: 100%;
+  background-size: 80%;
+  width: 30px;
+  background-position: center 7px;
 }
 
-#voice-input-img{
-  width: 10px;
-  height: 10px;
+#voice-input-button img {
+  height: 27px;
 }
