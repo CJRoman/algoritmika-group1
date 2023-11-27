@@ -377,12 +377,19 @@ body.night {
   padding: 10px;
   cursor: pointer;
   background: url('./images/microphone.svg');
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center 7px;
   position: absolute;
   right: 0;
-  background-repeat: no-repeat;
   height: 100%;
-  background-size: 80%;
   width: 30px;
+}
+
+#voice-input-button.active {
+  background: url('./images/microphone-active.svg');
+  background-repeat: no-repeat;
+  background-size: 80%;
   background-position: center 7px;
 }
 

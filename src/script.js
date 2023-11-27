@@ -5,6 +5,7 @@ const STATUSES = {
 };
 
 LOCAL_STORAGE_KEY = "tasks";
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 class Application {
 
@@ -20,7 +21,22 @@ class Application {
 
     this.createTaskBtn = document.getElementById("create-task-button");
     this.taskInput = document.getElementById("create-task-input");
-    this.voiceInput = document.getElementById("voice-input-button")
+    this.voiceInputBtn = document.getElementById("voice-input-button");
+
+    if (window.SpeechRecognition) {
+      this.speechRecognition = new SpeechRecognition();
+      this.speechRecognition.interimResults = true;
+      this.speechRecognition.lang = 'ru-RU';
+      this.speechRecognition.addEventListener('result', this.handleSpeechRecognition.bind(this));
+      this.speechRecognition.onerror = (e) => {
+        console.log(e.error);
+
+        if (e.error == 'no-speech') {
+          this.voiceInputBtn.classList.remove('active');
+          this.taskInput.placeholder = "Введите название задачи";
+        }
+      }
+    }
   }
 
   run() {
@@ -38,6 +54,11 @@ class Application {
         document.body.classList.add("night");
         window.localStorage.setItem("theme", "night");
       }
+    });
+    this.voiceInputBtn.addEventListener("click", () => {
+      this.taskInput.placeholder = "Говорите...";
+      this.voiceInputBtn.classList.add('active');
+      this.speechRecognition.start();
     });
 
     document.body.addEventListener("click", (e) => {
@@ -74,6 +95,16 @@ class Application {
     let theme = window.localStorage.getItem("theme") || "";
     if (!!theme) {
       document.body.classList.add(theme);
+    }
+  }
+
+  handleSpeechRecognition(e) {
+    this.taskInput.placeholder = "Распознавание...";
+    this.voiceInputBtn.classList.remove('active');
+    const result = e.results[0];
+    if (result.isFinal) {
+      this.taskInput.value = result[0].transcript;
+      this.taskInput.placeholder = "Введите название задачи";
     }
   }
 
